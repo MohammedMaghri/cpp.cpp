@@ -6,7 +6,7 @@
 /*   By: mmaghri <mmaghri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:50:56 by mmaghri           #+#    #+#             */
-/*   Updated: 2024/05/18 19:54:06 by mmaghri          ###   ########.fr       */
+/*   Updated: 2024/05/19 11:44:11 by mmaghri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,27 @@ int function_compare(std::string compare, std::string to_compare)
     return (0);
 }
 
-Phonenumbers add_herer(Phonenumbers *table, int index)
+std::string function_fill_form(std::string to_fill, std::string messge)
 {
-    std::cout << index << std::endl; 
-    table[index].index_id = index;
-    std::cout << " Add Name : " ;
-    std::getline(std::cin, table[index].name);
-    std::cout << " Add Last Name : " ;
-    std::getline(std::cin, table[index].lastname);
-    std::cout << " Add Nick name : " ;
-    std::getline(std::cin, table[index].nickname);
-    return (*table);
+    int flag = 0;
+    while (flag == 0)
+    {
+        std::cout << messge ;
+        std::getline(std::cin, to_fill);
+        if (to_fill.length() > 1)
+            flag = 1;
+    }
+    return (to_fill);
 }
-void function_check_excute(Phonenumbers *table, std::string compare)
+void add_herer(Phonenumbers table[], int index)
+{
+    std::cout << index << std::endl;
+   table[index].index_id = index;
+   table[index].name =  function_fill_form(table[index].name, "Name :");
+   table[index].nickname =  function_fill_form(table[index].nickname,  "Nick Name :");
+   table[index].lastname =  function_fill_form(table[index].nickname,  "Last Name :");
+}
+void function_check_excute(Phonenumbers table[], std::string compare)
 {
     int index;
     std::string element[3];
@@ -70,32 +78,27 @@ void function_check_excute(Phonenumbers *table, std::string compare)
         std::cout << "discard" << std::endl;
         return;
     }
-    else if (compare.length() == 3)
+    else if (compare.length() == 3 && function_compare(compare, element[0]) == 0)
     {
-        if (function_compare(compare, element[0]) == 0)
+        std::cout << "element will be added" << std::endl;
+        add_herer(table, memeber);
+        memeber++ ;
+        if (memeber == 8)
         {
-            std::cout << "element will be added" << std::endl;
-            add_herer(table, memeber);
-            memeber++ ;
-            if (memeber == 8)
-            {
-                std::cout << "ADDED 8 " << std::endl;
-                memeber = 0;
-            }
+            std::cout << "ADDED 8 " << std::endl;
+            memeber = 0;
         }
     }
-    else if (compare.length() == 6)
+    else if (compare.length() == 6 && function_compare(compare, element[1]) == 0)
     {
-        if (function_compare(compare, element[1]) == 0)
-            std::cout << "We will search For the element ..." << std::endl;
+        std::cout << "We will search For the element ..." << std::endl;
     }
-    else if (compare.length() == 4)
-    {
-        if (function_compare(compare, element[2]) == 0)
+    else if (compare.length() == 4 && function_compare(compare, element[2]) == 0)
             exit(0);
-    }
     else
+    {
         std::cout << "Discard" << std::endl;
+    }
 }
 
 void function_check_out_put(std::string output)
@@ -108,10 +111,11 @@ int main(int argc, char **argv)
     std::string var;
     int         index;
 
-    index = 1;
+    index = 0;
     
-    Phonenumbers *table ;
+    Phonenumbers table[8] ;
     int number ;
+
     while (1)
     {
         std::cout << "Write an Option" << std::endl;
@@ -120,6 +124,5 @@ int main(int argc, char **argv)
         number = 0;
         var = '\0';
     }
-    delete[] table;
     return (0);
 }
