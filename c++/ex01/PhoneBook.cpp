@@ -6,7 +6,7 @@
 /*   By: mmaghri <mmaghri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:50:56 by mmaghri           #+#    #+#             */
-/*   Updated: 2024/05/19 11:44:11 by mmaghri          ###   ########.fr       */
+/*   Updated: 2024/05/19 14:40:33 by mmaghri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ class Phonenumbers
         std::string name;
         std::string lastname;
         std::string nickname ;
+        std::string phonenumber;
+        std::string darkest_secret ;
         
 };
 
@@ -60,10 +62,37 @@ std::string function_fill_form(std::string to_fill, std::string messge)
 void add_herer(Phonenumbers table[], int index)
 {
     std::cout << index << std::endl;
-   table[index].index_id = index;
+   table[index].index_id = index + 1;
    table[index].name =  function_fill_form(table[index].name, "Name :");
    table[index].nickname =  function_fill_form(table[index].nickname,  "Nick Name :");
    table[index].lastname =  function_fill_form(table[index].nickname,  "Last Name :");
+   table[index].lastname =  function_fill_form(table[index].phonenumber,  "Phone number :");
+   table[index].lastname =  function_fill_form(table[index].darkest_secret,  "Darkest Secret :");
+}
+
+void print_this(std::string)
+{
+    int index = 0;
+    for (string)
+}
+void list_ithems(Phonenumbers table[])
+{
+    int index = 0;
+
+    if (table)
+    {
+        while (index < 8)
+        {
+            std::cout << table[index].index_id << " | " ;
+            std::cout << table[index].name << " | " ;
+            std::cout << table[index].nickname << " | " ;
+            std::cout << table[index].lastname << " | " ;
+            std::cout << table[index].phonenumber << " | " ;
+            std::cout << table[index].darkest_secret << " | " ;
+            index++ ;
+            std::cout << std::endl;
+        }
+    }
 }
 void function_check_excute(Phonenumbers table[], std::string compare)
 {
@@ -91,6 +120,7 @@ void function_check_excute(Phonenumbers table[], std::string compare)
     }
     else if (compare.length() == 6 && function_compare(compare, element[1]) == 0)
     {
+        list_ithems(table);
         std::cout << "We will search For the element ..." << std::endl;
     }
     else if (compare.length() == 4 && function_compare(compare, element[2]) == 0)
@@ -114,6 +144,14 @@ int main(int argc, char **argv)
     index = 0;
     
     Phonenumbers table[8] ;
+    while (index < 8)
+    {
+        table[index].index_id = 0;
+        table[index].name = '\0';
+        table[index].lastname = '\0';
+        table[index].nickname = '\0';
+        index++ ;
+    }
     int number ;
 
     while (1)
