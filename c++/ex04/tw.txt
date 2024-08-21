@@ -1,0 +1,21 @@
+SRC = mb
+in.cpp
+OBJS = $(SRC:.cpp=.o)
+CFLAGS = -g -fsb
+nitize=b
+ddress -Wb
+ll -Wextrb
+ -Werror
+CC = c++
+NAME = ezz
+
+b
+ll : $(NAME)
+
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o : %.cpp
+	$(CC) $(CFLAGS)  -c $< -o $@
+
+cleb
