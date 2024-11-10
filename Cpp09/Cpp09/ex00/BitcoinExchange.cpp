@@ -19,8 +19,6 @@ void GetDataBase(std::string Filename, StoreElements&  StoreIn){
     for ( ; getline(infile, value); ) {
 
         if (value.substr(0, value.find(",")) != "date"){
-            std::cout << value.substr(0, value.find(",")) << 
-            atof(value.substr(value.find(",") + 1).c_str())<< std::endl;
             StoreIn.setMap(value.substr(0, value.find(",")),
             atof(value.substr(value.find(",") + 1).c_str()));
         }
@@ -29,11 +27,13 @@ void GetDataBase(std::string Filename, StoreElements&  StoreIn){
     return ;
 };
 
+//Check If the String's Equal To each Other's 
 int checkInput(std::string value, std::string Tocheck){
     if (value == Tocheck) return (1);
     return (-1);
 };
 
+// Check If the string Is Digit's
 int checkIfDigit(std::string value){
     for (size_t i = 0; i < value.length(); i++){
         if (isdigit(value[i]) != 1) return (-1);
@@ -41,11 +41,13 @@ int checkIfDigit(std::string value){
     return (1);
 };
 
+// Function With the Exit Message 
 void ExitMessage(std::string message){
     std::cout << message << std::endl ;
     exit(1);
 };
 
+// Check If there Is Spaces In the String !
 int CheckIsspace(std::string value){
     for (size_t i = 0 ; i < value.length(); i++){
         if (isspace(value[i]) != 1) return (-1);
@@ -53,14 +55,7 @@ int CheckIsspace(std::string value){
     return (0);
 };
 
-int checkIsnumAndCharacters(std::string value, std::string elems){
-    for (size_t i = 0; i < value.length(); i++){
-        if (isdigit(value[i]) != 1 && value[i] != elems[0])
-            return (-1);
-    };
-    return (0);
-};
-
+// Return How many Times the Value Is in there ? 
 int valueCountSerachElement(std::string value, std::string search){
     int flag = 0;
     for (size_t i = 0; i < search.length(); i++){
@@ -69,6 +64,7 @@ int valueCountSerachElement(std::string value, std::string search){
     return (flag);
 };
 
+// Check Dates Based On the Month's 
 int checkDaysBasedOnMonth(int numberPassed, int dayCheck){
     if (dayCheck > 31 || dayCheck < 1) return (-1);
     if (numberPassed == 4 || numberPassed == 6 
@@ -77,6 +73,7 @@ int checkDaysBasedOnMonth(int numberPassed, int dayCheck){
     return (0);
 };
 
+// check If the Extract Dates Are Valid !
 int extractDates(std::string value){
     std::string year ;
     std::string month ;
@@ -91,12 +88,10 @@ int extractDates(std::string value){
     if (year.length() > 4 || month.length() > 2 || day.length() > 2) return (-1);
     if (atoi(month.c_str()) < 1 || atoi(month.c_str()) > 12) return (-1);
     if (checkDaysBasedOnMonth(atoi(month.c_str()), atoi(day.c_str())) == -1) return (-1);
-    // std::cout << "[" << year << "]" << std::endl ;
-    // std::cout << "[" << month << "]" << std::endl ;
-    // std::cout << "[" << day << "]" << std::endl ;
     return (0);
 };
 
+// Check If there's Any space In the String 
 int OtherCheckSpaceFunction (std::string value){
     for (size_t i = 0; i < value.length(); i++){
         if (isspace(value[i]) == 1 ){ return (-1);}
@@ -104,21 +99,15 @@ int OtherCheckSpaceFunction (std::string value){
     return (0);
 };
 
+// check if There's Any value With the character Passed To it .
 int functionCheckOnlyPass(std::string value, std::string check){
     for (size_t index = 0; index < value.length(); index++){
         if (isdigit(value[index]) != 1 && value[index] != check[0]) return (-1);
     };
     return (0);
 };
-int exludeValue(std::string value, std::string Totcheck) {
-    for (size_t index = 0; index < value.length(); index++){
-        if (value[index] != Totcheck[0] &&  value[index]
-         != Totcheck[1] && isdigit(value[index]) != 1) 
-            return (-1);
-    };
-    return (0);
-};
 
+// check If the Half Of the string Are Valid Or Not !
 int splitFirstHalf(std::string FirstHalf){
     int sec = FirstHalf.find_last_not_of(" \t\n");
     int firs = FirstHalf.find_first_not_of(" \t\n");
@@ -134,7 +123,8 @@ int splitFirstHalf(std::string FirstHalf){
     return (0);
 };
 
-int splitSecHalf(std::string SecHalf) { // Function to check the Sec Half of the Argument if it is Good Or Not !
+// Function to check the Sec Half of the Argument if it is Good Or Not !
+int splitSecHalf(std::string SecHalf) { 
     int sec = SecHalf.find_first_not_of(" \t\n");
     int first = SecHalf.find_last_not_of(" \t\n") ;
     double NumberCheck ;
@@ -152,8 +142,8 @@ int splitSecHalf(std::string SecHalf) { // Function to check the Sec Half of the
 std::string ParsDays(std::string value){
     std::string firsthalf = value.substr(0, value.find("|"));
     std::string secHalf = value.substr(value.find("|") + 1);
-
     try {
+        if ((value.find("Error") == std::string::npos) && CheckIsspace(secHalf) == 0 ){value = "Error Bad Input " + value ;}
         if ((value.find("Error") == std::string::npos) && (isspace(value[value.find("|") - 1]) != 1 || // if theere's Not space Or tab | After Or before This
         isspace(value[value.find("|") + 1]) != 1 )){
             value = "Error Bad Input => " + value ; 
@@ -181,16 +171,9 @@ std::string FunctionGetElmenetDates (std::string values, std::string seperator){
         int secPart = values.find_last_not_of(" \t\n");
         (void)secPart ;
         (void)firstPart ;
-        return (values.substr(firstPart, secPart));
+        return (values.substr(firstPart, secPart + 1));
     }
     return ("Error ");
-};
-
-void parsAndCheckData(std::string value, StoreElements& StoreIn){
-    (void)value ;
-    std::deque<std::string>::iterator it = StoreIn.ElementOrder.begin();
-    std::deque<std::string>::iterator itends = StoreIn.ElementOrder.end();
-    for (; it < itends; it++) { *it = ParsDays(*it) ; };
 };
 
 int checkSpaceAtfirst(std::string valueCheck){
@@ -210,15 +193,15 @@ void CheckInputData(std::string Filename, StoreElements& StoreIn){
                 if (Format.find("date | value") == 1)
                     flag += 1;
                 if (checkSpaceAtfirst(Format) == -1 && Format.length() >= 1) { // Check If the start of the elements That Hav a Space Or a tab
-                    StoreIn.SetDeque("Error Bad Input =>" + Format); // If So Store It with the Erro Msg
+                    StoreIn.setNewMap("Error Bad Input =>" + Format, 0); // If So Store It with the Erro Msg
                 }
                 else if (CheckIsspace(Format) != 0 && (valueCountSerachElement("|", Format) > 1 || valueCountSerachElement("-", Format) > 2 
-                || valueCountSerachElement("-", Format) < 2)) StoreIn.SetDeque("Error Bad Input => " + Format); // Check If the element Has Enougt | and -
+                || valueCountSerachElement("-", Format) < 2)) StoreIn.setNewMap("Error Bad Input => " + Format, 0); // Check If the element Has Enougt | and -
                 else if (CheckIsspace(Format) != 0 && ((Format.find("|") == std::string::npos))){ // if Not Store It In the Deque With the Same Error mssg 
-                    StoreIn.SetDeque("Error Bad Input => " + Format);
+                    StoreIn.setNewMap("Error Bad Input => " + Format, 0);
                 }
                 else if (CheckIsspace(Format) != 0 && (Format.find("|") != std::string::npos)){ // if it is Valid Then Store It it the Deque 
-                    StoreIn.SetDeque(Format);
+                    StoreIn.setNewMap(Format, 0);
                 }
             } catch (std::out_of_range &e) { // if an OutOfRange Expetion Is thrown We will catch It then
                 std::cout << " | " << e.what() << "|" << std::endl ;
@@ -228,6 +211,5 @@ void CheckInputData(std::string Filename, StoreElements& StoreIn){
         && checkInput("date | value", Format) == -1 && flag == 0) { ExitMessage("Not A valid Format !"); } // if It is Not A valid line The It will Thorw The Message
         else if (checkInput("date | value", Format) == 1) {flag = 1;} // set The flag So It can Enter the Loop In the Next Iteration
     };
-    parsAndCheckData("test", StoreIn);
     if (flag == 0) ExitMessage("Not Date-value");
 };

@@ -22,30 +22,25 @@ class StoreElements {
     private : 
         std::map <std::string, double> values; 
     public :
-        std::deque <std::string> ElementOrder ; // Deque Where We are Storing Element's 
-
+        std::map <std::string, int> NewMap;
         StoreElements(){};
-
         void setMap(std::string pair, double key){
             (void)pair ;
             (void)key ;
             values.insert(std::make_pair(pair, key));
         };
-        void SetDeque(std::string valueStore){
-            ElementOrder.push_back(valueStore);
+        void setNewMap(std::string pair, int key){
+            (void)pair ;
+            (void)key ;
+            NewMap.insert(std::make_pair(pair, key));
         };
-        std::deque<std::string>::iterator begvec(){
-            return (ElementOrder.begin());
+        std::map<std::string, int>::iterator postionStart(){
+            return (NewMap.begin());
         };
-        std::deque<std::string>::iterator endvec(){
-            return (ElementOrder.end());
+        std::map<std::string, int>::iterator positionEnd(){
+            return (NewMap.end());
         };
-        std::deque<std::string>::iterator beg(){
-            return (ElementOrder.begin());
-        };
-        std::deque<std::string>::iterator endd(){
-            return (ElementOrder.end());
-        };
+
         std::map<std::string, double>::iterator beging(){
             return (values.begin());
         };
@@ -56,3 +51,4 @@ class StoreElements {
 std::string FunctionGetElmenetDates (std::string values, std::string seperator);
 void CheckInputData(std::string Filename, StoreElements& StoreIn);
 void GetDataBase(std::string Filename, StoreElements&  StoreIn);
+std::string ParsDays(std::string value);
