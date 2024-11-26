@@ -42,7 +42,8 @@ void functionSetpairs(std::vector<int> values) {
     std::vector<int>::iterator end = values.end();
     std::vector<int> fillbig;
     std::vector<int> fillsmall;
-
+    bool toadjust = true ;
+    int adjust ;
     std::vector<std::pair<int, int> > elements;
     size_t index = 0;
     for (; index <= values.size(); index += 2){
@@ -51,12 +52,15 @@ void functionSetpairs(std::vector<int> values) {
             elements.push_back(std::make_pair(values[index], values[index + 1]));
         }
     };
-    if (values.size() % 2 != 0) std::cout << "Need Adjustment ! , " << values[index] << std::endl ;
+    if (values.size() % 2 != 0) {
+        std::cout << "need Adjust " << values[index] << std::endl ;
+        toadjust = false ;
+        adjust = values[index] ;
+    };
     GetBigOrSmall(elements);
     std::vector<std::pair<int, int> >::iterator beg = elements.begin();
     std::vector<std::pair<int, int> >::iterator notbeg = elements.end();
     for (;beg != notbeg; beg++){
-        std::cout << " :-> " << beg->first << " - " << beg->second << std::endl;
         fillsmall.push_back(beg->first);
         fillbig.push_back(beg->second);
     };
@@ -65,6 +69,10 @@ void functionSetpairs(std::vector<int> values) {
     std::vector<int>::iterator ed = fillbig.end();
     insertElements(fillbig, fillsmall);
     st = fillbig.begin();
+    ed = fillbig.end();
+    std::vector<int>::iterator ensert ;
+    if (toadjust == false){std::cout << "Herer 1 "<< adjust << std::endl ; fillbig.insert(std::lower_bound(st, ed, adjust), adjust);};
+     st = fillbig.begin();
     ed = fillbig.end();
     for (; st != ed ; st++){
         std::cout << "-> " << *st << std::endl ;
