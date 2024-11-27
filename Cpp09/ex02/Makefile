@@ -1,4 +1,4 @@
-SRC = PmergeMe.cpp test.cpp
+SRC = PmergeMe.cpp rec.cpp
 OBJS = ${SRC:.cpp=.o}
 CC = c++
 CFLAGS =  

@@ -48,19 +48,3 @@ void mergeSort(std::vector<int>& array, int left, int right, int flag) {
         count++;
     }
 }
-
-// int main() {
-//     std::vector<int> array = {9 , 1, 4, 5};
-//     for (int num : array)
-//         std::cout << num << " ";
-//     std::cout << std::endl;
-
-//     mergeSort(array, 0, array.size() - 1, 0);
-
-//     std::cout << "Sorted array: ";
-//     for (int num : array)
-//         std::cout << num << " ";
-//     std::cout << std::endl;
-
-//     return 0;
-//}
